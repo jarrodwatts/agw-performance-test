@@ -34,7 +34,7 @@ export default function Login() {
   const { address, isConnected, isConnecting, isReconnecting } = useAccount();
   const { login } = useLoginWithAbstract();
   const { data: abstractClient } = useAbstractClient();
-  const { hasValidSession, createAndStoreSession, getStoredSession, session } =
+  const { hasValidSession, createAndStoreSession, session } =
     useAbstractSession();
   const [isCreatingSession, setIsCreatingSession] = useState(false);
   const [isPageLoading, setIsPageLoading] = useState(true);

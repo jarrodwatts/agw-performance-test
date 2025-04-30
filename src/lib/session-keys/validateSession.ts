@@ -1,10 +1,8 @@
 import { clearStoredSession } from "./clearStoredSession";
-import { createAndStoreSession } from "./createAndStoreSession";
 import { SupportedChain } from "@/const/chain";
 import { abstractTestnet } from "viem/chains";
 import type { AbstractClient } from "@abstract-foundation/agw-client";
 import type { Address } from "viem";
-import type { SessionConfig } from "@abstract-foundation/agw-client/sessions";
 
 /**
  * @function validateSession
@@ -22,7 +20,6 @@ import type { SessionConfig } from "@abstract-foundation/agw-client/sessions";
  * @param {Address} address - The wallet address that owns the session
  * @param {string} sessionHash - The hash of the session to validate
  * @param {SupportedChain} chain - The blockchain configuration to use for validation
- * @param {(params: { session: SessionConfig }) => Promise<{ transactionHash?: `0x${string}`; session: SessionConfig }>} createSessionAsync - The function to create a new session
  *
  * @returns {Promise<boolean>} A promise that resolves to a boolean indicating whether
  *                            the session is valid (true) or not (false)
@@ -31,10 +28,7 @@ export const validateSession = async (
   abstractClient: AbstractClient,
   address: Address,
   sessionHash: `0x${string}`,
-  chain: SupportedChain,
-  createSessionAsync: (params: {
-    session: SessionConfig;
-  }) => Promise<{ transactionHash?: `0x${string}`; session: SessionConfig }>
+  chain: SupportedChain
 ): Promise<boolean> => {
   try {
     const status = await abstractClient.getSessionStatus(sessionHash);

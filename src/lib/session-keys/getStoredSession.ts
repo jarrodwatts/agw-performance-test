@@ -27,7 +27,6 @@ import { DEFAULT_CALL_POLICIES } from "./createAndStoreSession";
  *
  * @param {Address} address - The wallet address whose session should be retrieved
  * @param {SupportedChain} chain - The blockchain configuration to use for validation
- * @param {(params: { session: SessionConfig }) => Promise<{ transactionHash?: `0x${string}`; session: SessionConfig }>} createSessionAsync - The function to create a new session
  *
  * @returns {Promise<Object|null>} A promise that resolves to:
  *   - The session data object (containing `session` and `privateKey`) if successful
@@ -40,10 +39,7 @@ import { DEFAULT_CALL_POLICIES } from "./createAndStoreSession";
 export const getStoredSession = async (
   abstractClient: AbstractClient,
   address: Address,
-  chain: SupportedChain,
-  createSessionAsync: (params: {
-    session: SessionConfig;
-  }) => Promise<{ transactionHash?: `0x${string}`; session: SessionConfig }>
+  chain: SupportedChain
 ): Promise<{
   session: SessionConfig;
   privateKey: Address;
@@ -81,8 +77,7 @@ export const getStoredSession = async (
       abstractClient,
       address,
       sessionHash,
-      chain,
-      createSessionAsync
+      chain
     );
 
     if (!isValid) return null;

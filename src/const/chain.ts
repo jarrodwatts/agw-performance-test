@@ -1,4 +1,4 @@
-import { abstractTestnet, abstract } from "viem/chains";
+import { abstractTestnet } from "viem/chains";
 
 /**
  * This exports the chain configuration to be used in the application.

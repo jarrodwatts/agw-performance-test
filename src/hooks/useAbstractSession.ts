@@ -49,12 +49,7 @@ export const useAbstractSession = () => {
   // Check session status helper function
   const checkSession = useCallback(async () => {
     if (address && client) {
-      const session = await getStoredSession(
-        client,
-        address,
-        chain,
-        createSessionAsync
-      );
+      const session = await getStoredSession(client, address, chain);
       if (session) {
         setHasValidSession(true);
         setSession(session);
@@ -69,7 +64,7 @@ export const useAbstractSession = () => {
       setSession(null);
       return false;
     }
-  }, [address, client, chain, createSessionAsync]);
+  }, [address, client, createSessionAsync]);
 
   useEffect(() => {
     checkSession();
@@ -113,10 +108,9 @@ export const useAbstractSession = () => {
   return {
     session,
     hasValidSession,
-    getStoredSession: () =>
-      getStoredSession(client, address, chain, createSessionAsync),
+    getStoredSession: () => getStoredSession(client, address, chain),
     validateSession: (sessionHash: `0x${string}`) =>
-      validateSession(client, address, sessionHash, chain, createSessionAsync),
+      validateSession(client, address, sessionHash, chain),
     createAndStoreSession: createAndStoreSessionWithUpdate,
     clearStoredSession: clearStoredSessionWithUpdate,
   };
